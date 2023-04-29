@@ -1,0 +1,8 @@
+
+/scripts/__pycache__
+
+# Virtual environment
+/env
+
+# Config-file
+/scripts/config.py
