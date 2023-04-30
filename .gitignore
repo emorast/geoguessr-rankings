@@ -4,5 +4,9 @@
 # Virtual environment
 /env
 
-# Config-file
+# Files with sensitive information
 /scripts/config.py
+/djangoapp/djangoapp/credentials.py
+
+# Own personal notes
+/docs/notes.md
