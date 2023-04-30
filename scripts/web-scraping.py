@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 from config import *
 import pickle
+import json
+import sqlite3
 
 def save_session(session):
     with open('save.pkl', 'wb') as f:
@@ -10,13 +12,65 @@ def save_session(session):
 def load_session():
     with open('save.pkl', 'rb') as f:
         return pickle.load(f)
-            
-def get_leg_results(data):
+    
+def get_request(session, url):
+    req = session.get(url)
+    return BeautifulSoup(req.content, 'html.parser')
+         
+def get_stats(session, data):
+    
+    # Connect to db
+    conn = sqlite3.connect('data.db')
+    cur = conn.cursor()
+    
+    # Fetch creation date for timestamp
+    creation_info = data.find_all('p', class_ = "league-details__created")
+    date = str(creation_info[0].text.split(',')[1]).strip()
+    
+    # Fetch data
     legs = data.find_all('div', class_ = "leg-list__leg")
-    if len(legs) !=0:
+    if len(legs) !=0:       
         for leg in legs:
-            print(leg)
-
+            game_token = leg.a['href'].split('/')[-1]
+            api_url = main_url+'/api/v3/results/highscores/'+game_token+'?friends=false&limit=50'
+            json_data = json.loads(get_request(session, api_url).text)
+            
+            # Get map information
+            info = json_data['items'][0]['game']
+            map_name = info['mapName']
+            locations = []
+            for location in info['rounds']:
+                locations.append([location['lat'], location['lng']])
+            
+            # # Insert map information into database
+            # print(type(str(game_token)))
+            # to_insert = (map_name, str(game_token), locations[0],
+            #               locations[1], locations[2], locations[3], locations[4])
+            # cur.execute('INSERT INTO played_maps VALUES(?, ?, ?, ?, ?, ?, ?)', to_insert)                         
+            # conn.commit()
+            
+            # Get player stats
+            for player in json_data['items']:
+                full_name = player['playerName']
+                user_id = player['userId']
+                total_score = player['totalScore']
+                rounds = player['game']['player']['guesses']
+                score_by_round = []
+                for round in rounds:
+                    score_by_round.append(round['roundScore']['amount'])
+                str(score_by_round)
+                
+                # Print player stats
+                # print('%s %s %s' %(full_name, user_id, total_score))
+                # print(score_by_round,'\n')
+                
+            # Insert player stats into database
+            
+                
+            # TODO remove break when done
+            conn.close()
+            break
+               
 if __name__ == '__main__':
     with requests.session() as session:
         if login_required:
@@ -31,11 +85,8 @@ if __name__ == '__main__':
                 print("Error: Unable to connect")           
         else:
             session = load_session()
-                
-        req = session.get(league_url)
-        data = BeautifulSoup(req.content, 'html.parser')
-        
-        get_leg_results(data)
+                 
+        get_stats(session, get_request(session,league_url))
         
         
         

@@ -10,3 +10,8 @@
 
 # Own personal notes
 /docs/notes.md
+
+# Files
+/scripts/save.pkl
+/data.db
+/test.json
