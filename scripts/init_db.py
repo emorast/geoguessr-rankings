@@ -5,33 +5,46 @@ if __name__ == '__main__':
     cur = conn.cursor()
     
     # Create tables
-    cur.execute('''DROP TABLE IF EXISTS players_results''')
-    cur.execute('''
-                CREATE TABLE players_result(
-                user_id TEXT PRIMARY KEY,
-                full_name TEXT NOT NULL,
-                date TEXT,
-                game_token TEXT,
-                total_score INTEGER,  
-                score_1 TEXT,
-                score_2 TEXT,
-                score_3 TEXT,
-                score_4 TEXT,
-                score_5 TEXT  
+    cur.execute('''DROP TABLE IF EXISTS maps''')
+    cur.execute('''          
+                    CREATE TABLE maps(
+                        game_token TEXT PRIMARY KEY,
+                        map_name TEXT,
+                        date DATE
+                    )''')
+    cur.execute('''DROP TABLE IF EXISTS players''')
+    cur.execute('''  
+                CREATE TABLE players(
+                    user_id TEXT PRIMARY KEY,
+                    full_name TEXT,
+                    overall_ranking INTEGER,
+                    seasonal_ranking INTEGER,
+                    weekly_ranking INTEGER                
                 )''')
-    
-    cur.execute('''DROP TABLE IF EXISTS played_maps''')
-    cur.execute('''
-                CREATE TABLE played_maps(
-                map_name TEXT PRIMARY KEY,
-                game_token TEXT,
-                location_1 TEXT,
-                location_2 TEXT,
-                location_3 TEXT,
-                location_4 TEXT,
-                location_5 TEXT             
+    cur.execute('''DROP TABLE IF EXISTS results''')
+    cur.execute(''' 
+                CREATE TABLE results(
+                    user_id TEXT,
+                    full_name TEXT,
+                    date DATE,
+                    game_token TEXT,
+                    total_score INTEGER,  
+                    score_1 INTEGER,
+                    score_2 INTEGER,
+                    score_3 INTEGER,
+                    score_4 INTEGER,
+                    score_5 INTEGER  
                 )''')
-    
+    cur.execute('''DROP TABLE IF EXISTS locations''')
+    cur.execute('''               
+                CREATE TABLE locations(
+                    id TEXT PRIMARY KEY,
+                    map_name TEXT,
+                    game_token TEXT,
+                    date DATE,
+                    lat FLOAT,
+                    lng FLOAT 
+                )''')   
     conn.close()
     
     

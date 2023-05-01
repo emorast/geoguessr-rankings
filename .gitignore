@@ -13,5 +13,5 @@
 
 # Files
 /scripts/save.pkl
-/data.db
+/scripts/data.db
 /test.json

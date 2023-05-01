@@ -1,9 +1,12 @@
 # geoguessr-elo Devlog
-### 2023/03/30
+### 2023/05/01
+- Added tables *locations*, *maps*, *players* and *results* to the database
+- Finishing the script for scraping league results into the database
+### 2023/04/30
 - Solved login problem. Instead of giving `requests.session().post()` the *payload* as a dict, a `.json`is given instead
 - Solved problem with too many POST requests resulting in getting blocked from Geouessr.com
 - Implemented scraping of the highscore-board from each leg in a league
-- Added database connection
+- Added `sqlite`database connection
 - Started `Django` project
 
 ### 2023/04/29

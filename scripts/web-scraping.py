@@ -16,7 +16,7 @@ def load_session():
 def get_request(session, url):
     req = session.get(url)
     return BeautifulSoup(req.content, 'html.parser')
-         
+
 def get_stats(session, data):
     
     # Connect to db
@@ -38,38 +38,49 @@ def get_stats(session, data):
             # Get map information
             info = json_data['items'][0]['game']
             map_name = info['mapName']
-            locations = []
-            for location in info['rounds']:
-                locations.append([location['lat'], location['lng']])
-            
-            # # Insert map information into database
-            # print(type(str(game_token)))
-            # to_insert = (map_name, str(game_token), locations[0],
-            #               locations[1], locations[2], locations[3], locations[4])
-            # cur.execute('INSERT INTO played_maps VALUES(?, ?, ?, ?, ?, ?, ?)', to_insert)                         
-            # conn.commit()
-            
-            # Get player stats
-            for player in json_data['items']:
-                full_name = player['playerName']
-                user_id = player['userId']
-                total_score = player['totalScore']
-                rounds = player['game']['player']['guesses']
-                score_by_round = []
-                for round in rounds:
-                    score_by_round.append(round['roundScore']['amount'])
-                str(score_by_round)
+    
+            # Insert map information
+            try:
+                to_insert = (game_token, map_name, date)
+                cur.execute('INSERT INTO maps VALUES(?, ?, ?)', to_insert)                         
+                conn.commit()
+                 
+                # Insert locations
+                for location in info['rounds']:
+                    location_id = location['panoId']
+                    lat = float(location['lat'])
+                    lng = float(location['lng'])
+                    
+                    to_insert = (location_id, map_name, game_token, date, lat, lng) 
+                    cur.execute('INSERT INTO locations VALUES(?, ?, ?, ?, ?, ?)', to_insert)                         
+                conn.commit()
                 
-                # Print player stats
-                # print('%s %s %s' %(full_name, user_id, total_score))
-                # print(score_by_round,'\n')
-                
-            # Insert player stats into database
-            
-                
-            # TODO remove break when done
-            conn.close()
-            break
+                # Insert player stats
+                for player in json_data['items']:
+                    full_name = player['playerName']
+                    user_id = player['userId']
+                    total_score = int(player['totalScore'])
+                    rounds = player['game']['player']['guesses']
+                    score_by_round = []
+                    for round in rounds:
+                        score_by_round.append(int(round['roundScore']['amount']))
+        
+                    # Insert new players in database if any
+                    try:
+                        to_insert = (user_id, full_name, None, None, None)
+                        cur.execute('INSERT INTO players VALUES(?, ?, ?, ?, ?)', to_insert)
+                        conn.commit()
+                    except:
+                        pass 
+                           
+                    to_insert = (user_id, full_name, date, game_token, total_score,
+                                    score_by_round[0], score_by_round[1], score_by_round[2],
+                                    score_by_round[3], score_by_round[4])
+                    cur.execute('INSERT INTO results VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', to_insert)
+            except Exception as e:
+                print(e)
+                print('Error: Results from %s are already imported' %game_token)
+    conn.close()
                
 if __name__ == '__main__':
     with requests.session() as session:
