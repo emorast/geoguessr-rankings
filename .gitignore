@@ -13,6 +13,7 @@
 
 # Files
 *.Db*
-/scripts/save.pkl
-/scripts/data.Db
+*.pkl*
+*.txt*
+*.csv*
 /test.json

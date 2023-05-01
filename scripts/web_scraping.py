@@ -81,9 +81,9 @@ def get_stats(session, data):
             except Exception as e:
                 print(e)
                 print('Error: Results from %s are already imported' %game_token)
-    conn.close()
-               
-if __name__ == '__main__':
+    conn.close()                
+def web_scrape(league_url):
+    print('Scraping: %s' %league_url)
     with requests.session() as session:
         if login_required:
             res = session.post(login_url, json={
