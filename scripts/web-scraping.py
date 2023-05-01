@@ -70,6 +70,7 @@ def get_stats(session, data):
                         to_insert = (user_id, full_name, None, None, None)
                         cur.execute('INSERT INTO players VALUES(?, ?, ?, ?, ?)', to_insert)
                         conn.commit()
+                        print('Added %s (%s)' %(full_name, user_id))
                     except:
                         pass 
                            
