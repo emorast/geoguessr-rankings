@@ -12,6 +12,7 @@
 /docs/notes.md
 
 # Files
+*.Db*
 /scripts/save.pkl
 /scripts/data.Db
 /test.json

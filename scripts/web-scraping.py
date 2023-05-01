@@ -39,10 +39,10 @@ def get_stats(session, data):
             info = json_data['items'][0]['game']
             map_name = info['mapName']
     
-            # Insert map information
+            # Insert game information
             try:
                 to_insert = (game_token, map_name, date)
-                cur.execute('INSERT INTO maps VALUES(?, ?, ?)', to_insert)                         
+                cur.execute('INSERT INTO games VALUES(?, ?, ?)', to_insert)                         
                 conn.commit()
                  
                 # Insert locations
@@ -67,8 +67,8 @@ def get_stats(session, data):
         
                     # Insert new players in database if any
                     try:
-                        to_insert = (user_id, full_name, None, None, None)
-                        cur.execute('INSERT INTO players VALUES(?, ?, ?, ?, ?)', to_insert)
+                        to_insert = (user_id, full_name, 0, 1000, 1000, None)
+                        cur.execute('INSERT INTO players VALUES(?, ?, ?, ?, ?, ?)', to_insert)
                         conn.commit()
                         print('Added %s (%s)' %(full_name, user_id))
                     except:

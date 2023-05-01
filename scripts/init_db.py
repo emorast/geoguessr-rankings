@@ -5,9 +5,9 @@ if __name__ == '__main__':
     cur = conn.cursor()
     
     # Create tables
-    cur.execute('''DROP TABLE IF EXISTS maps''')
+    cur.execute('''DROP TABLE IF EXISTS games''')
     cur.execute('''          
-                    CREATE TABLE maps(
+                    CREATE TABLE games(
                         game_token TEXT PRIMARY KEY,
                         map_name TEXT,
                         date DATE
@@ -17,9 +17,10 @@ if __name__ == '__main__':
                 CREATE TABLE players(
                     user_id TEXT PRIMARY KEY,
                     full_name TEXT,
-                    overall_ranking INTEGER,
-                    seasonal_ranking INTEGER,
-                    weekly_ranking INTEGER                
+                    played_games INTEGER,
+                    overall_elo INTEGER,
+                    seasonal_elo INTEGER,
+                    weekly_rank INTEGER                
                 )''')
     cur.execute('''DROP TABLE IF EXISTS results''')
     cur.execute(''' 

@@ -7,5 +7,7 @@ A full-stack application for storing and presenting data from recurring GeoGuess
 
 The frontend will be based on `React` and the backend will be developed using `Django 4.2`.
 
+The elo rating system written based on this [article](https://towardsdatascience.com/developing-a-generalized-elo-rating-system-for-multiplayer-games-b9b495e87802).
+
 ## Devlog
 The progress of the project is doucmented in the [devlog](docs/devlog.md).

@@ -2,7 +2,7 @@
 ### 2023/05/01
 - Added tables *locations*, *maps*, *players* and *results* to the database
 - Finishing the script for scraping league results into the database
-- Started working on the elo rating system
+- Started implementing elo rating system
 ### 2023/04/30
 - Solved login problem. Instead of giving `requests.session().post()` the *payload* as a dict, a `.json`is given instead
 - Solved problem with too many POST requests resulting in getting blocked from Geouessr.com
