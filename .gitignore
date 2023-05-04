@@ -2,7 +2,7 @@
 /scripts/__pycache__
 
 # Virtual environment
-/env
+/geoguessr-elo
 
 # Files with sensitive information
 /scripts/config.py
@@ -10,6 +10,8 @@
 
 # Own personal notes
 /docs/notes.md
+
+/project/project
 
 # Files
 *.Db*

@@ -1,7 +1,7 @@
 import sqlite3
 
 if __name__ == '__main__':
-    conn = sqlite3.connect('data.db')
+    conn = sqlite3.connect('db.sqlite3')
     cur = conn.cursor()
     
     # Create tables
