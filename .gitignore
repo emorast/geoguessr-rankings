@@ -6,7 +6,7 @@
 
 # Files with sensitive information
 /scripts/config.py
-/djangoapp/djangoapp/credentials.py
+/project/djangoapp/credentials.py
 
 # Own personal notes
 /docs/notes.md
@@ -16,4 +16,5 @@
 *.pkl*
 *.txt*
 *.csv*
+*.sqlite3
 /test.json
