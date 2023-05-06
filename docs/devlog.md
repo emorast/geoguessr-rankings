@@ -17,6 +17,6 @@
     - calculate the contestants elo-rating
     - display a high-score-board
 
-- Decided that the frontend will be built on `React`and the backend will be built using `Django`
+- Decided that the frontend will be built on `Bootstrap 5`and the backend will be built using `Django`
 
 - Added script to scrape the pro-league url
