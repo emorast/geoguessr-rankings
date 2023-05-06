@@ -605,13 +605,9 @@ progress {
   }
 }
 
-.rank-list-item {
-  padding-top: 0.75rem;
-  list-style: none;
-  background-color: #fff3cd;
+.list-container {
+  padding-top: 1.25rem;
 }
-
-
 
 .list-unstyled {
   padding-left: 0;
@@ -4828,6 +4824,10 @@ fieldset:disabled .btn {
   color: var(--bs-card-color);
 }
 
+.rank-color {
+  background-color: #ebecd3;
+}
+
 .card-title {
   margin-bottom: var(--bs-card-title-spacer-y);
 }
@@ -8754,6 +8754,11 @@ fieldset:disabled .btn {
 .px-5 {
   padding-right: 3rem !important;
   padding-left: 3rem !important;
+}
+
+.px-6 {
+  padding-right: 5rem !important;
+  padding-left: 5rem !important;
 }
 
 .py-0 {

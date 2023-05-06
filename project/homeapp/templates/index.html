@@ -64,15 +64,13 @@
           <h2 class="masthead-subheading mb-0">
             Platser Digital Solutions har besökt
           </h2>
-          <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#scroll"
-            >Till kartan</a
-          >
+          <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#karta">Till kartan</a>
         </div>
       </div>
     </header>
     <!-- Nyheter-->
     <section>
-      <div class="container px-1">
+      <div class="container px-1 py-3 border-bottom">
         <div class="row gx-5 align-items-center">
           <div class="col-lg-6">
             <div
@@ -81,7 +79,7 @@
               data-bs-ride="carousel"
             >
               <div class="carousel-inner">
-                <div class="carousel-item active" data-bs-interval="4000">
+                <div class="carousel-item active" data-bs-interval="6000">
                   <div class="card" style="width: 18rem">
                     <img class="card-img-top" src="" alt="Card image cap" />
                     <div class="card-body">
@@ -90,7 +88,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="carousel-item" data-bs-interval="4000">
+                <div class="carousel-item" data-bs-interval="6000">
                   <div class="card" style="width: 18rem">
                     <img class="card-img-top" src="" alt="Card image cap" />
                     <div class="card-body">
@@ -106,54 +104,56 @@
       </div>
     </section>
     <!-- Rankinglista-->
-    <section>
-      <div class="container px-5">
+    <section id="ranking">
+      <div class="container px-5 py-3 border-bottom">
         <div class="row gx-5 align-items-center">
-          <h2 class="display-4" align='center'>Ranking</h2>
-          <div class="list-container">
-            <ol class="rank-list">
-              {% for player in players %}
-                <li class="rank-list-item">
-                  <span>{{player.full_name}}</span>
-                  <span>{{player.overall_elo}}</span>
-                </li>
-              {% endfor %} 
-            </ol>
+        {% if showFullList %}
+          <h2 class="display-4" align='center'>Alla Spelare</h2>
+        {% else %}
+          <h2 class="display-4" align='center'>Topp 10</h2>
+        {% endif %}
+          <div class="container" align='center' >
+            {% for player in players %}     
+              <div class="row py-1 w-50"> 
+                <div class="card rank-color p-0">
+                  <div class="d-flex align-items-center">
+                    <i class="ms-3 fas fa-angle-up" align='right'></i>
+                    <h3 class="ms-3">{{ forloop.counter }}</h3>
+                    <div class="ms-5">
+                      <p class="fw-bold mb-1">{{ player.full_name }}</p>
+                      <p class="text-muted mb-0" align='left'>{{ player.overall_elo }}</p>    
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
           </div>
         </div>
+          <div align='center'>
+            {% if showFullList %}
+              <a class="btn btn-primary btn-xl rounded-pill mt-2" href="/#ranking" align='center'>Visa färre</a>
+            {% else %}
+              <a class="btn btn-primary btn-xl rounded-pill mt-2" href="/list/#ranking" align='center'>Visa fler</a>
+            {% endif %}
+          </div>
       </div>
+
     </section>
     <!-- Analyser-->
     <section>
-      <div class="container px-5">
-        <div class="row gx-5 align-items-center">
-          <div class="col-lg-6">
-            <div class="p-5">
-              <img class="img-fluid rounded-circle" src="" alt="..." />
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="p-5">
-              <h2 class="display-4">Statistik</h2>
-              <p>Text</p>
-            </div>
-          </div>
+      <div class="container px-5 border-bottom">
+        <div class="row gx-5 py-5 align-items-center">
+          <h2 class="display-4" align="center">Statistik</h2>
+          <p class="text-center">Text</p>
         </div>
       </div>
     </section>
     <!-- Interaktiv karta-->
-    <section id="scroll">
+    <section id="karta">
       <div class="container px-5">
         <div class="row gx-5 align-items-center">
-          <div class="col-lg-6 order-lg-2">
-            <div class="p-5">
-              <img class="img-fluid rounded-circle" src="" alt="..." />
-            </div>
-          </div>
-          <div class="col-lg-6 order-lg-1">
-            <div class="p-5">
-              <h2 class="display-4">Kartan</h2>
-              <p>Text</p>
+            <h2 class="display-4" align="center">Kartan</h2>
+              <p class="text-center">Text</p>
             </div>
           </div>
         </div>
