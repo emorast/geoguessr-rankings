@@ -1,5 +1,5 @@
 
-/scripts/__pycache__
+__pycache__/
 
 # Virtual environment
 /geoguessr-elo
@@ -11,7 +11,9 @@
 # Own personal notes
 /docs/notes.md
 
+# Django files
 /project/project
+/project/manage.py
 
 # Files
 *.Db*
@@ -21,5 +23,7 @@
 *.sqlite3
 /test.json
 
-# Modules
-/project/frontend/node_modules
+# Bootstrap
+/project/homeapp/static/homeapp/css
+/project/homeapp/static/homeapp/js
+

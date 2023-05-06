@@ -1,4 +1,10 @@
 # geoguessr-elo Devlog
+### 2023/05/06
+- Added Bootstrap 5 framework
+- Added home-page based on this [template](https://startbootstrap.com/previews/one-page-wonder)
+- Changed the theme to more green-ish
+
+
 ### 2023/05/01
 - Added tables *locations*, *maps*, *players* and *results* to the database
 - Finishing the script for scraping league results into the database
