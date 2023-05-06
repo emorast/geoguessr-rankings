@@ -100,30 +100,6 @@
                   </div>
                 </div>
               </div>
-              <button
-                class="carousel-control-prev"
-                type="button"
-                data-bs-target="#carouselExampleInterval"
-                data-bs-slide="prev"
-              >
-                <span
-                  class="carousel-control-prev-icon"
-                  aria-hidden="true"
-                ></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button
-                class="carousel-control-next"
-                type="button"
-                data-bs-target="#carouselExampleInterval"
-                data-bs-slide="next"
-              >
-                <span
-                  class="carousel-control-next-icon"
-                  aria-hidden="true"
-                ></span>
-                <span class="visually-hidden">Next</span>
-              </button>
             </div>
           </div>
         </div>
@@ -133,14 +109,15 @@
     <section>
       <div class="container px-5">
         <div class="row gx-5 align-items-center">
-          <h2 class="display-4">Officiell rankinglista</h2>
+          <h2 class="display-4" align='center'>Ranking</h2>
           <div class="list-container">
             <ol class="rank-list">
-              {% with 'Egil Gustaf Ingela Göran Jacob' as list %} 
-                {% for i in list.split %}
-                  <li>{{i}} 
-                {% endfor %} 
-              {% endwith %}</li>
+              {% for player in players %}
+                <li class="rank-list-item">
+                  <span>{{player.full_name}}</span>
+                  <span>{{player.overall_elo}}</span>
+                </li>
+              {% endfor %} 
             </ol>
           </div>
         </div>

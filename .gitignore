@@ -26,4 +26,3 @@ __pycache__/
 # Bootstrap
 /project/homeapp/static/homeapp/css
 /project/homeapp/static/homeapp/js
-/project/homeapp/static/homeapp/theme
