@@ -20,3 +20,6 @@
 *.csv*
 *.sqlite3
 /test.json
+
+# Modules
+/project/frontend/node_modules
