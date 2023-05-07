@@ -605,7 +605,7 @@ progress {
   }
 }
 
-.list-container {
+.graph-container .list-container {
   padding-top: 1.25rem;
 }
 
@@ -689,7 +689,7 @@ progress {
 .container-sm {
   --bs-gutter-x: 1.5rem;
   --bs-gutter-y: 0;
-  width: 100%;
+  width: 70%;
   padding-right: calc(var(--bs-gutter-x) * 0.5);
   padding-left: calc(var(--bs-gutter-x) * 0.5);
   margin-right: auto;
@@ -6668,6 +6668,7 @@ fieldset:disabled .btn {
   transition: transform 0.6s ease-in-out;
 }
 
+
 @media (prefers-reduced-motion: reduce) {
   .carousel-item {
     transition: none;
@@ -12635,6 +12636,14 @@ html {
   letter-spacing: 0.1rem;
 }
 
+.btn-l {
+  text-transform: uppercase;
+  padding: 1.25rem 2.25rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.1rem;
+}
+
 .navbar-custom {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -12660,7 +12669,8 @@ header.masthead {
   overflow: hidden;
   padding-top: calc(7rem + 72px);
   padding-bottom: 7rem;
-  background: linear-gradient(0deg, #0c4128 0%, #087990 100%);
+  background-image: url('../assets/img_earth.jpg');
+  /* background: linear-gradient(0deg, #0c4128 0%, #087990 100%); */
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: scroll;
