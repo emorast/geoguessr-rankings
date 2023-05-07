@@ -19,7 +19,7 @@ class Games(models.Model):
 
 
 class Locations(models.Model):
-    location = models.TextField(blank=True, null=True)
+    location = models.TextField(primary_key=True)
     map_name = models.TextField(blank=True, null=True)
     game_token = models.TextField(blank=True, null=True)
     date = models.DateField(blank=True, null=True)
