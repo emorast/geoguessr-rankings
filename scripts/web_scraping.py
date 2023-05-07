@@ -23,7 +23,7 @@ def get_request(session, url):
 
 def get_stats(session, data):
     # Connect to db
-    conn = sqlite3.connect(os.path.join(DATA_DIR, "db.sqlite3"))
+    conn = sqlite3.connect(DB)
     cur = conn.cursor()
 
     # Fetch creation date for timestamp

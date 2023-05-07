@@ -1,9 +1,8 @@
 import sqlite3
-import os
-from config import DATA_DIR
+from config import DB
 
 if __name__ == "__main__":
-    conn = sqlite3.connect(os.path.join(DATA_DIR, "db.sqlite3"))
+    conn = sqlite3.connect(DB)
     cur = conn.cursor()
     # Create tables
     cur.execute("""DROP TABLE IF EXISTS games""")
@@ -15,6 +14,12 @@ if __name__ == "__main__":
                         date DATE
                     )"""
     )
+    cur.execute(
+        """
+                CREATE UNIQUE INDEX idx_game_token ON games (game_token)
+                """
+    )
+
     cur.execute("""DROP TABLE IF EXISTS players""")
     cur.execute(
         """  
@@ -26,6 +31,11 @@ if __name__ == "__main__":
                     seasonal_elo INTEGER,
                     weekly_rank INTEGER                
                 )"""
+    )
+    cur.execute(
+        """
+                CREATE UNIQUE INDEX idx_user_id ON players (user_id)
+                """
     )
     cur.execute("""DROP TABLE IF EXISTS results""")
     cur.execute(
@@ -43,6 +53,12 @@ if __name__ == "__main__":
                     score_5 INTEGER  
                 )"""
     )
+    cur.execute(
+        """
+                CREATE INDEX idx_results ON results (user_id, date, game_token)
+                """
+    )
+
     cur.execute("""DROP TABLE IF EXISTS locations""")
     cur.execute(
         """               
@@ -55,4 +71,19 @@ if __name__ == "__main__":
                     lng FLOAT 
                 )"""
     )
+    cur.execute("""DROP TABLE IF EXISTS elo""")
+    cur.execute(
+        """               
+                CREATE TABLE elo(
+                    user_id TEXT,
+                    date DATE,
+                    elo INTEGER
+                )"""
+    )
+    cur.execute(
+        """
+                CREATE INDEX idx_elo ON elo (user_id, elo)
+                """
+    )
+
     conn.close()

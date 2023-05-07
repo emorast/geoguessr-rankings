@@ -1,21 +1,25 @@
 import sqlite3
-from config import K, D, ALPHA, DATA_DIR
-import os
-
-conn = sqlite3.connect(os.path.join(DATA_DIR, "db.sqlite3"))
-cur = conn.cursor()
-
-
-# Get list of all played games
-# TODO extend functionality so games between certain dates can be selected
-def get_games():
-    res = cur.execute("""SELECT game_token FROM games""").fetchall()
-    games = [x for x in res]
-    return games
+from config import K, D, ALPHA, DB
 
 
 # Function calculates and update
-def calculate_elo(results, players):
+def calculate_elo(game_token):
+    conn = sqlite3.connect(DB)
+
+    cur = conn.cursor()
+    res = cur.execute(
+        """SELECT user_id, total_score FROM results WHERE game_token = ? """, game_token
+    )
+    results = [x for x in res]
+    players = {}
+    for player_id in results:
+        res = cur.execute(
+            """SELECT user_id, overall_elo FROM players WHERE user_id = ? """,
+            (player_id[0],),
+        ).fetchall()
+        id, elo = res[0]
+        players[id] = elo
+
     n_players = len(results)
     results.sort(key=lambda tup: tup[1], reverse=True)
 
@@ -40,6 +44,8 @@ def calculate_elo(results, players):
         actual_score = (pow(ALPHA, n_players - placement) - 1) / sum
         new_elo = round(elo + K * (n_players - 1) * (actual_score - expected_score))
 
+        # Save current ELO rating
+
         # Update ELO
         cur.execute(
             """UPDATE players SET overall_elo = ? WHERE user_id = ? """,
@@ -56,24 +62,4 @@ def calculate_elo(results, players):
             (played_games, player[0]),
         )
         conn.commit()
-
-
-if __name__ == "__main__":
-    games = get_games()
-    for game in games:
-        res = cur.execute(
-            """SELECT user_id, total_score FROM results WHERE game_token = ? """, game
-        )
-        results = [x for x in res]
-        players = {}
-        for player_id in results:
-            res = cur.execute(
-                """SELECT user_id, overall_elo FROM players WHERE user_id = ? """,
-                (player_id[0],),
-            ).fetchall()
-            id, elo = res[0]
-            players[id] = elo
-
-        calculate_elo(results, players)
-
-    conn.close()
+        conn.close()
