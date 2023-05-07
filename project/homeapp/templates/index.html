@@ -32,6 +32,7 @@
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
   </head>
   <body id="page-top">
+
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
       <div class="container px-5">
@@ -50,116 +51,107 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link" href="#!">Rankinglistan</a>
+              <a class="nav-link" href="#ranking">Ranking</a>
             </li>
-            <li class="nav-item"><a class="nav-link" href="#!">Karta</a></li>
+            <li class="nav-item"><a class="nav-link" href="#karta">Karta</a></li>
             <li class="nav-item">
-              <a class="nav-link" href="#!">Statistik</a>
+              <a class="nav-link" href="#stats">Statistik</a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
+
+
     <!-- Header-->
     <header class="masthead text-center text-white">
       <div class="masthead-content">
         <div class="container px-5">
-          <h1 class="masthead-heading mb-0">Geoguessr-veckoturnering</h1>
+          <h1 class="masthead-heading mb-0">Geoguessr&#8482-veckoturnering</h1>
           <h2 class="masthead-subheading mb-0">
-            Platser Digital Solutions har besökt
+            Platser Digital Solutions vill besöka men inte får
           </h2>
-          <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#scroll"
-            >Till kartan</a
-          >
+          <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#karta">Till kartan</a>
         </div>
       </div>
     </header>
+
+
     <!-- Nyheter-->
-    <section>
-      <div class="container px-1">
+    <section id="slides">
+
+    </section>
+
+    <!-- Rankinglista-->
+    <section id="ranking">
+      <h2 class="display-4 my-5" align='center'>Ranking</h2>
+      <div class="container px-5 py-3 my-4 border-bottom shadow p-3 mb-5 bg-white rounded">
         <div class="row gx-5 align-items-center">
-          <div class="col-lg-6">
-            <div
-              id="carouselExampleInterval"
-              class="carousel slide"
-              data-bs-ride="carousel"
-            >
-              <div class="carousel-inner">
-                <div class="carousel-item active" data-bs-interval="4000">
-                  <div class="card" style="width: 18rem">
-                    <img class="card-img-top" src="" alt="Card image cap" />
-                    <div class="card-body">
-                      <h5 class="card-title">Exempel nyhet 1</h5>
-                      <p class="card-text">Exempel nyhetstext</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="carousel-item" data-bs-interval="4000">
-                  <div class="card" style="width: 18rem">
-                    <img class="card-img-top" src="" alt="Card image cap" />
-                    <div class="card-body">
-                      <h5 class="card-title">Exempel nyhet 2</h5>
-                      <p class="card-text">Exempel nyhetstext</p>
-                    </div>
+        {% if showFullList %}
+          <h2 class="display-6" align='center'>Alla Spelare</h2>
+        {% else %}
+          <h2 class="display-6" align='center'>Topp 10</h2>
+        {% endif %}
+          <div class="container" align='center' >
+            {% for player in players %}     
+              <div class="row py-1 w-75 border-bottom"> 
+                <div class="d-flex align-items-center">
+                  <i class="ms-3 fas fa-angle-up" align='right'></i>
+                  <h3 class="ms-3">{{ forloop.counter }}</h3>
+                  <div class="ms-5">
+                    <p class="fw-bold mb-1">{{ player.full_name }}</p>
+                    <p class="text-muted mb-0" align='left'>{{ player.overall_elo }}</p>    
                   </div>
                 </div>
               </div>
-            </div>
+            {% endfor %}
           </div>
         </div>
-      </div>
-    </section>
-    <!-- Rankinglista-->
-    <section>
-      <div class="container px-5">
-        <div class="row gx-5 align-items-center">
-          <h2 class="display-4" align='center'>Ranking</h2>
-          <div class="list-container">
-            <ol class="rank-list">
-              {% for player in players %}
-                <li class="rank-list-item">
-                  <span>{{player.full_name}}</span>
-                  <span>{{player.overall_elo}}</span>
-                </li>
-              {% endfor %} 
-            </ol>
+          <div class='py-2' align='center'>
+            {% if showFullList %}
+              <a class="btn btn-primary btn-l rounded-pill mt-2" href="/#ranking" align='center'>Visa färre</a>
+            {% else %}
+              <a class="btn btn-primary btn-l rounded-pill mt-2" href="/list/#ranking" align='center'>Visa fler</a>
+            {% endif %}
           </div>
+      </div>
+
+    </section>
+    <!-- Statistik-->
+    <section id="stats">
+      <div class="container px-5 border-bottom">
+        <div class="row gx-5 py-3 align-items-center">
+          <h2 class="display-4" align="center">Statistik</h2>
+          <p class="text-center">
+            Undrar du också hur du kan få 4530, 3743, 4998, 3531 och 4201 och ändå komma
+            på placering 23? Du är inte ensam. Det är något som har hållit många Geoguessr&#8482-fantaster
+            vakna om nätterna i urminnes tider. Här på geoguessr-rankings ser vi inte problem, vi ser bara utmaningar.
+            Därför har vi utvecklat verktyg för att just DU kan göra de djupgående analyserna av veckans parti som DU förtjänar.
+            Klicka på knappen för att komma vidare till verktyget.
+          </p>
         </div>
-      </div>
-    </section>
-    <!-- Analyser-->
-    <section>
-      <div class="container px-5">
-        <div class="row gx-5 align-items-center">
-          <div class="col-lg-6">
-            <div class="p-5">
-              <img class="img-fluid rounded-circle" src="" alt="..." />
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="p-5">
-              <h2 class="display-4">Statistik</h2>
-              <p>Text</p>
-            </div>
-          </div>
+        <div class='py-1 my-4' align='center'>
+          <a class="btn btn-primary btn-l rounded-pill mt-2" href="" align='center'>Till sidan</a>
         </div>
       </div>
     </section>
     <!-- Interaktiv karta-->
-    <section id="scroll">
-      <div class="container px-5">
+    <section id="karta">
+      <div class="container px-5 py-5">
         <div class="row gx-5 align-items-center">
-          <h2 class="display-4" align='center'>Heatmap</h2>
-        </div>
-      </div>
-      <div class="container py-1 align-items-center " style="">
-          <!-- <div id="map" class="mx-auto" style="height: 510px; width: 510px; border-radius: 50%"> -->
+            <h2 class="display-4" align="center">Kartan</h2>
+              <p class="text-center">
+                Vilka platser har vi egentligen besökt under turneringens gång? 
+                Det går lätt att se i den högteknologiska och interaktiva kartan som visas här. Kartan uppdateras
+                en gång i veckan och är alltid aktuell, förutom i början av slutet på veckan eller i slutet av början av nästa.
+              </p>
+            <div class="container py-1 align-items-center " style="">
           <div id="map" class="mx-auto" style="height: calc(100vw * 0.5); width: calc(100vw * 0.5); max-height: 700px; max-width: 700px; border-radius: 50%">
-            <!-- <img class="img-fluid rounded-circle" src="" alt="..." /> -->
           </div>
           <div class="col-lg-6 px-5 mx-auto">
             <a class="row .text-dark" href="https://www.Bylerius.se">Powered by Bylle</a>
             <a class="row .text-dark" href='https://www.mapbox.com/about/maps/' target='_blank'>Maps &copy; Mapbox</a>
+            </div>
           </div>
         </div>
     </section>

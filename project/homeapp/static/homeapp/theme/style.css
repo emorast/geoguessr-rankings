@@ -605,13 +605,9 @@ progress {
   }
 }
 
-.rank-list-item {
-  padding-top: 0.75rem;
-  list-style: none;
-  background-color: #fff3cd;
+.graph-container .list-container {
+  padding-top: 1.25rem;
 }
-
-
 
 .list-unstyled {
   padding-left: 0;
@@ -693,7 +689,7 @@ progress {
 .container-sm {
   --bs-gutter-x: 1.5rem;
   --bs-gutter-y: 0;
-  width: 100%;
+  width: 70%;
   padding-right: calc(var(--bs-gutter-x) * 0.5);
   padding-left: calc(var(--bs-gutter-x) * 0.5);
   margin-right: auto;
@@ -4828,6 +4824,10 @@ fieldset:disabled .btn {
   color: var(--bs-card-color);
 }
 
+.rank-color {
+  background-color: #ebecd3;
+}
+
 .card-title {
   margin-bottom: var(--bs-card-title-spacer-y);
 }
@@ -6667,6 +6667,7 @@ fieldset:disabled .btn {
   backface-visibility: hidden;
   transition: transform 0.6s ease-in-out;
 }
+
 
 @media (prefers-reduced-motion: reduce) {
   .carousel-item {
@@ -8754,6 +8755,11 @@ fieldset:disabled .btn {
 .px-5 {
   padding-right: 3rem !important;
   padding-left: 3rem !important;
+}
+
+.px-6 {
+  padding-right: 5rem !important;
+  padding-left: 5rem !important;
 }
 
 .py-0 {
@@ -12630,6 +12636,14 @@ html {
   letter-spacing: 0.1rem;
 }
 
+.btn-l {
+  text-transform: uppercase;
+  padding: 1.25rem 2.25rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.1rem;
+}
+
 .navbar-custom {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -12655,7 +12669,8 @@ header.masthead {
   overflow: hidden;
   padding-top: calc(7rem + 72px);
   padding-bottom: 7rem;
-  background: linear-gradient(0deg, #0c4128 0%, #087990 100%);
+  background-image: url('../assets/img_earth.jpg');
+  /* background: linear-gradient(0deg, #0c4128 0%, #087990 100%); */
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: scroll;
