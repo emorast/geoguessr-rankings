@@ -11,7 +11,11 @@ TEMPLATE_DIRS = 'os.path.join(BASE_DIR, "templates").'
 def index(request):
     context = {}
     players = Players.objects.order_by("-overall_elo")[:10]
+    locations = serializers.serialize(
+        "json", Locations.objects.all(), fields=["lat", "lng"]
+    )
     context["players"] = players
+    context["locations"] = locations
     context["showFullList"] = False
 
     return render(request, "index.html", context)
@@ -20,7 +24,9 @@ def index(request):
 def list(request):
     context = {}
     players = Players.objects.all().order_by("-overall_elo")
-    locations = serializers.serialize("json", Locations.objects.all(), fields=["lat", "lng"])
+    locations = serializers.serialize(
+        "json", Locations.objects.all(), fields=["lat", "lng"]
+    )
     context["players"] = players
     context["locations"] = locations
     context["showFullList"] = True
