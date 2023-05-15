@@ -1,4 +1,9 @@
 # geoguessr-elo Devlog
+### 2023/05/15
+- Added log of previous elo-ratings
+- Improve elo calculation function
+- Added new table in database
+
 ### 2023/05/07
 - Adjusted rankinglist design
 - Added descriptive text to the sections on the home-page
