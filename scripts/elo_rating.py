@@ -1,14 +1,18 @@
 import sqlite3
 from config import K, D, ALPHA, DB
 
+"""
+Function that given a game_token updates the elo-rating of every
+player in that game. It also stores the previous elo-rating in the
+db
+"""
 
-# Function calculates and update
-def calculate_elo(game_token):
-    conn = sqlite3.connect(DB)
 
-    cur = conn.cursor()
+def update_elo(info, cur):
+    game_token, date = info
     res = cur.execute(
-        """SELECT user_id, total_score FROM results WHERE game_token = ? """, game_token
+        """SELECT user_id, total_score, date FROM results WHERE game_token = ? """,
+        (game_token,),
     )
     results = [x for x in res]
     players = {}
@@ -44,9 +48,15 @@ def calculate_elo(game_token):
         actual_score = (pow(ALPHA, n_players - placement) - 1) / sum
         new_elo = round(elo + K * (n_players - 1) * (actual_score - expected_score))
 
-        # Save current ELO rating
+        # Save previous ELO rating
+        res = cur.execute(
+            """INSERT INTO elo (user_id, date, elo)
+            VALUES (?,?,?)               
+                          """,
+            (player[0], date, elo),
+        )
 
-        # Update ELO
+        # Update current ELO
         cur.execute(
             """UPDATE players SET overall_elo = ? WHERE user_id = ? """,
             (new_elo, player[0]),
@@ -61,5 +71,3 @@ def calculate_elo(game_token):
             """UPDATE players SET played_games = ? WHERE user_id = ? """,
             (played_games, player[0]),
         )
-        conn.commit()
-        conn.close()
